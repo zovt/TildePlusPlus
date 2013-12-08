@@ -14,8 +14,11 @@ int main()
 		{
 			sendWindowsToWindowArray(tempWindowArray.at(i));
 			std::cout << "!!!!!!!!!!!!!!Window sent to array!!!!!!!!!!!!" << "\n";
+			std::cout << "!!!!!!!!!!!!!!Window HWND in array: " << WindowArray.at(WindowArray.size()-1) << "!!!!!!!!!!!\n";
 		}
 	}
+	numWindows = WindowArray.size();
+	std::cout << "numWindows: " << numWindows << "\n";
 	LoadLibrary(L"Ship.dll");
 	std::cin.get();
 	return 0;

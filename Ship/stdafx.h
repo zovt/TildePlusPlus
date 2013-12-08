@@ -14,3 +14,5 @@
 
 
 // TODO: reference additional headers your program requires here
+#define ENABLEIMPORTS // Enable the necessary variable imports (see stdafx.h of Libde++)
+#include "Window.h"

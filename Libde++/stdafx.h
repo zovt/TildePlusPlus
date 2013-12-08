@@ -17,3 +17,15 @@
 #else
 #define TILDEAPI __declspec(dllexport)
 #endif
+
+#include <iostream>
+
+//#define DEBUG_ENABLED
+
+#ifdef DEBUG_ENABLED
+#define dbgmsg(a, b) printf("!!!!!!!!!!!"##a##"!!!!!!!!!!!\n", b)
+#define idbgmsg(a, b) printf(a##"\n", b)
+#else
+#define dbgmsg(a, b) ""
+#define idbgmsg(a, b) ""
+#endif

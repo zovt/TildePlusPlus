@@ -142,12 +142,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="Monitor.h" />
     <ClInclude Include="TildePlusPlus.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Monitor.cpp" />
     <ClCompile Include="TildePlusPlus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

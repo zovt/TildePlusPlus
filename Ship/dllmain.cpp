@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Tiling.h"
 
+
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -11,7 +12,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	{
 	case DLL_PROCESS_ATTACH:
 		printf("########## Ship loaded! ##########\n");
-		Tile();
+		EnumDisplayMonitors(NULL, NULL, GetMonitors, NULL);
+		SortWindowsToMonitors(WindowList, MonitorList);
+		Tile(MonitorList);
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:

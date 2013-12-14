@@ -1,31 +1,38 @@
+#pragma once
 #include "stdafx.h"
 #include "Tiling.h"
 #include <iostream>
 int X=0, Y=0;
 int i = 0;
-void Tile()
+void Tile(std::vector<Monitor> MonList)
 {
-	dbgmsg("Tile() called!",NULL);
-	dbgmsg("numWindows: %d", numWindows);
-	for(i = 0; i < numWindows; i++){
-		dbgmsg("For loop at: %d", i);
-		if(i<MAX_PORT_WINDOWS)
+	int PortWindowSizeVertical, PortWindowSizeHorizontal, PortWindowMovementVertical, DeckWindowSizeVertical, DeckWindowSizeHorizontal, DeckWindowMovementVertical, DeckWindowMovementHorizontal;
+	for(int i = 0; i < MonList.size(); i++)
+	{
+		PortWindowSizeVertical = MonList.at(i).height/MAX_PORT_WINDOWS;
+		PortWindowSizeHorizontal = 2*(MonList.at(i).width/3);
+		PortWindowMovementVertical = PortWindowSizeVertical;
+
+		if(MonList.at(i).WindowList.size() > MAX_PORT_WINDOWS)
 		{
-			TilePort(WindowArray.at(i), MAX_PORT_WINDOWS);
+			DeckWindowSizeVertical = MonList.at(i).height/(MonList.at(i).WindowList.size()-MAX_PORT_WINDOWS);
+			DeckWindowSizeHorizontal = MonList.at(i).width/3;
+			DeckWindowMovementVertical = DeckWindowSizeVertical;
+			DeckWindowMovementHorizontal = PortWindowSizeHorizontal;
 		}
-		else
+
+		idbgmsg("Monitor %d", i);
+		idbgmsg(" has %d windows", MonList.at(i).WindowList.size());
+		for(int j = 0; j < MonList.at(i).WindowList.size(); j++)
 		{
-			TileDeck(WindowArray.at(i));
+			if(j<MAX_PORT_WINDOWS)
+			{
+				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB, MonList.at(i).tB + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
+			}
+			else
+			{
+				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB + DeckWindowMovementHorizontal, MonList.at(i).tB + DeckWindowMovementVertical*(j-MAX_PORT_WINDOWS), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
+			}
 		}
 	}
-}
-
-void TilePort(HWND hwnd, int numPortWin)
-{
-	SetWindowPos(hwnd, HWND_BOTTOM, 0, i*(1080/numPortWin), 1280, (1080/numPortWin), NULL);
-}
-
-void TileDeck(HWND hwnd)
-{
-	SetWindowPos(hwnd, HWND_BOTTOM, 1280, (i-MAX_PORT_WINDOWS)*(1080/(numWindows-MAX_PORT_WINDOWS)), 640, (1080/(numWindows-MAX_PORT_WINDOWS)), NULL);
 }

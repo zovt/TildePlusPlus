@@ -2,4 +2,6 @@
 #define ENABLEIMPORTS // Enable the necessary variable imports (see stdafx.h of Libde++)
 #define DEBUGENABLED
 #include <Windows.h>
+#include <vector>
 #include "dbgmsg.h"
+BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList);

@@ -2,8 +2,41 @@
 #include "dbgmsg.h"
 #include "Window.h"
 #include <iostream>
-int main()
+
+const PCWSTR g_szClassName = L"myWindowClass";
+char hwndow[50];
+
+LRESULT CALLBACK getMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if(wParam)
+	{
+		UpdateWindowList(lParam, WindowList);
+	}
+	return 0;
+}
+
+
+
+int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
+{
+	UINT hookMsg;
+	WNDCLASSEX wc;
+	HWND hwnd;
+	MSG msg;
+
+	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.style = 0;
+	wc.lpfnWndProc = getMessage;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = g_szClassName;
+	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
 	char buffer[64];
 	char dwBuf[128];
 
@@ -45,6 +78,24 @@ int main()
 	}
 	dbgmsg("numWindows: %d", numWindows);
 	LoadLibrary(L"Ship.dll");
+	
+	if(!RegisterClassEx(&wc))
+	{
+		MessageBox(NULL, L"Window Registration Failed", L"Error!!", MB_ICONEXCLAMATION | MB_OK);
+		return 0;
+	}
+
+	hwnd = CreateWindowEx(
+		WS_EX_APPWINDOW,
+		g_szClassName,
+		L"Tilde++",
+		WS_VISIBLE,
+		CW_USEDEFAULT, CW_USEDEFAULT, 240,120,
+		HWND_MESSAGE, NULL, hInstance, NULL);
+
+	RegisterShellHookWindow(hwnd);
+	hookMsg = RegisterWindowMessageA("SHELLHOOK");
+
 	std::cin.get();
 	return 0;
 }

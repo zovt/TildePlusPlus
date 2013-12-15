@@ -1,4 +1,4 @@
-﻿Build started 13/12/2013 19:09:04.
+﻿Build started 15/12/2013 11:58:41.
      1>Project "D:\Github\Tilde++\Tilde++\Libde++\Libde++.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _LIB /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug\Libde++.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
@@ -17,4 +17,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.39
+Time Elapsed 00:00:02.30

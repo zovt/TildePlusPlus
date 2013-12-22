@@ -5,13 +5,24 @@
 
 const PCWSTR g_szClassName = L"myWindowClass";
 char hwndow[50];
+UINT shellHookMessage;
+updateFunction uFunc;
 
-LRESULT CALLBACK getMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+
+LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if(wParam)
+	switch (msg)
 	{
-		UpdateWindowList(lParam, WindowList);
+	default:
+		if(msg == shellHookMessage)
+		{
+			UpdateWindowList(wParam, lParam, WindowList, uFunc);
+		}
+		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
+
+	
+
 	return 0;
 }
 
@@ -19,14 +30,18 @@ LRESULT CALLBACK getMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 {
-	UINT hookMsg;
+#ifndef DEBUGENABLED
+	FreeConsole();
+#endif
 	WNDCLASSEX wc;
 	HWND hwnd;
 	MSG msg;
+	BOOL bRet;
+	HINSTANCE hDll;
 
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = 0;
-	wc.lpfnWndProc = getMessage;
+	wc.lpfnWndProc = windowProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
@@ -77,7 +92,6 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		idbgmsg("Window %d style: %p", i, dwBuf);
 	}
 	dbgmsg("numWindows: %d", numWindows);
-	LoadLibrary(L"Ship.dll");
 	
 	if(!RegisterClassEx(&wc))
 	{
@@ -94,7 +108,36 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		HWND_MESSAGE, NULL, hInstance, NULL);
 
 	RegisterShellHookWindow(hwnd);
-	hookMsg = RegisterWindowMessageA("SHELLHOOK");
+	shellHookMessage = RegisterWindowMessage(TEXT("SHELLHOOK"));
+
+
+	hDll = LoadLibrary(L"Ship.dll");
+	if(!(GetProcAddress(hDll, "Main_Update")))
+	{
+		dbgmsg("Could not find Main_Update!!!!",NULL);
+		dbgmsg("Last Error: %d", GetLastError());
+	}
+	if(!(uFunc = (updateFunction)GetProcAddress(hDll, "Main_Update")))
+	{
+		dbgmsg("Could not find Main_Update!!",NULL);
+	}
+
+
+	while( (bRet = GetMessage( &msg, NULL, 0, 0 )) != 0 ) 
+	{
+		if (bRet == -1)
+        {
+         // handle the error and possibly exit
+        }
+        else
+        {
+            TranslateMessage( &msg );
+            DispatchMessage( &msg );
+		}
+	}
+
+
+
 
 	std::cin.get();
 	return 0;

@@ -17,5 +17,5 @@
 #define DEBUGENABLED
 #define ENABLEIMPORTS // Enable the necessary variable imports (see stdafx.h of Libde++)
 #include "dbgmsg.h"
-#include <iostream>
 #include "Window.h"
+#include <iostream>

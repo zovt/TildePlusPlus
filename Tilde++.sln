@@ -9,10 +9,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Libde++", "Libde++\Libde++.vcxproj", "{0A9988BA-3E90-4DF8-AF86-ADAB9AD19237}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tilde++", "Tilde++\Tilde++.vcxproj", "{65781E64-1E98-4B81-9EC9-1F9E909E5258}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1DA37F75-5336-478A-B0AB-E0DE39F13FD0} = {1DA37F75-5336-478A-B0AB-E0DE39F13FD0}
-		{0A9988BA-3E90-4DF8-AF86-ADAB9AD19237} = {0A9988BA-3E90-4DF8-AF86-ADAB9AD19237}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

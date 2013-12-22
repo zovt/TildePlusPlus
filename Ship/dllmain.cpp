@@ -1,6 +1,11 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
 #include "Tiling.h"
+#include "Update.h"
+#include "Window.h"
+
+const PCWSTR g_szClassName = L"shipWindow";
+UINT shellHookMessage;
 
 
 BOOL APIENTRY DllMain( HMODULE hModule,

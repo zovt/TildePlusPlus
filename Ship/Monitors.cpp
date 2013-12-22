@@ -51,6 +51,7 @@ void SortWindowsToMonitors(std::vector<HWND> &WinList, std::vector<Monitor> &Mon
 	for(int i = 0; i < WinList.size(); i++)
 	{
 		GetWindowRect(WinList.at(i), &rect);
+		InflateRect(&rect, -2, -2);
 		for(int j = 0; j < MonList.size(); j++)
 		{
 			if((MonList.at(j).lB <= rect.left && rect.left <= MonList.at(j).rB) && (MonList.at(j).tB <= rect.bottom && rect.bottom <= MonList.at(j).bB))

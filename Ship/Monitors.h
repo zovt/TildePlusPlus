@@ -16,3 +16,4 @@ extern std::vector<Monitor> MonitorList;
 
 BOOL CALLBACK GetMonitors(HMONITOR hMon, HDC hdcMon, LPRECT lprcMon, LPARAM dwData);
 void SortWindowsToMonitors(std::vector<HWND> &WinList, std::vector<Monitor> &MonList);
+

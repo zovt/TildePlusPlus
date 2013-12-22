@@ -4,4 +4,5 @@
 #include <Windows.h>
 #include <vector>
 #include "dbgmsg.h"
-BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList);
+typedef BOOL (*updateFunction)(int, HWND);
+BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList, updateFunction (&function));

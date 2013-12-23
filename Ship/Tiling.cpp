@@ -36,3 +36,66 @@ void Tile(std::vector<Monitor> MonList)
 		}
 	}
 }
+
+int GetCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList)
+{
+	for(int i = 0; i < MonList.size(); i++)
+	{
+		for(int j = 0; j < MonList.at(i).WindowList.size(); j++)
+		{
+			if(hwnd == MonList.at(i).WindowList.at(j))
+			{
+				return i;
+			}
+		}
+	}
+	return 0;
+}
+
+BOOL SwapWindows(HWND hwnd, std::vector<Monitor> &MonList, int positionToSwapTo)
+{
+	int windowLocation = 0;
+	HWND middleMan;
+	int currentMonitor = GetCurrentMonitor(hwnd, MonList);
+
+	if(positionToSwapTo > MonList.at(currentMonitor).WindowList.size())
+	{
+		return FALSE;
+	}
+
+
+	for(int i = 0; i < MonList.at(currentMonitor).WindowList.size(); i++)
+	{
+		if(hwnd == MonList.at(currentMonitor).WindowList.at(i))
+		{
+			windowLocation = i;
+		}
+	}
+	
+	middleMan = hwnd;
+
+	MonList.at(currentMonitor).WindowList.at(windowLocation) = MonList.at(currentMonitor).WindowList.at(positionToSwapTo-1);
+	MonList.at(currentMonitor).WindowList.at(positionToSwapTo - 1) = middleMan;
+
+	return TRUE;
+}
+
+BOOL SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList)
+{
+	int currentMonitor = GetCurrentMonitor(hwnd, MonList);
+	int nextMonitor = currentMonitor + 1;
+	for(int i = 0; i < MonList.at(currentMonitor).WindowList.size(); i++)
+	{
+		if(hwnd == MonList.at(currentMonitor).WindowList.at(i))
+		{
+			if(currentMonitor + 1 >= MonList.size())
+			{
+				nextMonitor = 0;
+			}
+			MonList.at(nextMonitor).WindowList.push_back(MonList.at(currentMonitor).WindowList.at(i));
+			MonList.at(currentMonitor).WindowList.erase(MonList.at(currentMonitor).WindowList.begin() + i);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}

@@ -7,6 +7,8 @@ const PCWSTR g_szClassName = L"myWindowClass";
 char hwndow[50];
 UINT shellHookMessage;
 updateFunction uFunc;
+handleHotkeyFunction hhFunc;
+registerHotkeyFunction rhFunc;
 
 
 LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -17,6 +19,10 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if(msg == shellHookMessage)
 		{
 			UpdateWindowList(wParam, lParam, WindowList, uFunc);
+		}
+		if(msg == WM_HOTKEY)
+		{
+			hhFunc(wParam);
 		}
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
@@ -117,10 +123,29 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		dbgmsg("Could not find Main_Update!!!!",NULL);
 		dbgmsg("Last Error: %d", GetLastError());
 	}
+	if(!(GetProcAddress(hDll, "Main_RegisterHotkeys")))
+	{
+		dbgmsg("Could not find Main_RegisterHotkeys!",NULL);
+	}
+	if(!(GetProcAddress(hDll, "Main_HandleHotkeys")))
+	{
+		dbgmsg("Could not find Main_HandleHotkeys!",NULL);
+	}
 	if(!(uFunc = (updateFunction)GetProcAddress(hDll, "Main_Update")))
 	{
 		dbgmsg("Could not find Main_Update!!",NULL);
 	}
+	if(!(rhFunc = (registerHotkeyFunction)GetProcAddress(hDll, "Main_RegisterHotkeys")))
+	{
+		dbgmsg("Could not find Main_RegisterHotkeys!",NULL);
+	}
+	if(!(hhFunc = (handleHotkeyFunction)GetProcAddress(hDll, "Main_HandleHotkeys")))
+	{
+		dbgmsg("Could not find Main_HandleHotkeys!",NULL);
+	}
+
+	rhFunc(hwnd);
+
 
 
 	while( (bRet = GetMessage( &msg, NULL, 0, 0 )) != 0 ) 

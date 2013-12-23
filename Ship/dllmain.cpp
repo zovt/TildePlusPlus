@@ -19,7 +19,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 		printf("########## Ship loaded! ##########\n");
 		EnumDisplayMonitors(NULL, NULL, GetMonitors, NULL);
 		SortWindowsToMonitors(WindowList, MonitorList);
-		//Tile(MonitorList);
+		Tile(MonitorList);
 		
 
 	case DLL_THREAD_ATTACH:

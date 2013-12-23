@@ -5,4 +5,6 @@
 #include <vector>
 #include "dbgmsg.h"
 typedef BOOL (*updateFunction)(int, HWND);
+typedef BOOL (*registerHotkeyFunction)(HWND(&));
+typedef BOOL (*handleHotkeyFunction)(int);
 BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList, updateFunction (&function));

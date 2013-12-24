@@ -1,0 +1,24 @@
+Microsoft (R) COFF/PE Dumper Version 11.00.50727.1
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file Ship.lib
+
+File Type: LIBRARY
+
+     Exports
+
+       ordinal    name
+
+                  Main_HandleHotkeys
+                  Main_RegisterHotkeys
+                  Main_Update
+
+  Summary
+
+          BA .debug$S
+          14 .idata$2
+          14 .idata$3
+           8 .idata$4
+           8 .idata$5
+           A .idata$6

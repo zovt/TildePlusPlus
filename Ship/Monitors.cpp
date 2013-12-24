@@ -15,8 +15,11 @@ Monitor::~Monitor()
 }
 void Monitor::SetSize()
 {
+	Options options = monOptions;
 	width = rB - lB;
 	height = bB - tB;
+	usableWidth = width - options.TBRSize - options.TBLSize - (2*options.BHor);
+	usableHeight = height - options.TBBSize - options.TBTSize - (2*options.BVer);
 }
 
 std::vector<Monitor> MonitorList;

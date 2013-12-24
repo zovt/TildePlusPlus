@@ -3,7 +3,7 @@
 
 const UINT created = 396850;
 const UINT destroyed = 396851;
-ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0;
+ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0, nPadDot, nPadPlus, nPadMinus;
 
 __declspec(dllexport) BOOL Main_Update(int callCase, HWND hwnd)
 {
@@ -85,6 +85,24 @@ extern "C" __declspec(dllexport) BOOL Main_HandleHotkeys(int id)
 		Tile(MonitorList);
 		return TRUE;
 	}
+	if(id == nPadDot)
+	{
+		ForceAddTiling(currentWindow, MonitorList);
+		Tile(MonitorList);
+		return TRUE;
+	}
+	if(id == nPadPlus)
+	{
+		ChangeMonitorPortWindows(MonitorList, 1);
+		Tile(MonitorList);
+		return TRUE;
+	}
+	if(id == nPadMinus)
+	{
+		ChangeMonitorPortWindows(MonitorList, -1);
+		Tile(MonitorList);
+		return TRUE;
+	}
 	return FALSE;
 }
 
@@ -100,6 +118,9 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
 	nPad8 = GlobalAddAtomA("nPad8Hotkey");
 	nPad9 = GlobalAddAtomA("nPad9Hotkey");
 	nPad0 = GlobalAddAtomA("nPad0Hotkey");
+	nPadDot = GlobalAddAtomA("nPadDotHotkey");
+	nPadPlus = GlobalAddAtomA("nPadPlusHotkey");
+	nPadMinus = GlobalAddAtomA("nPadMinusHotkey");
 
 	RegisterHotKey(hwnd, nPad1, MOD_CONTROL, VK_NUMPAD1);
 	RegisterHotKey(hwnd, nPad2, MOD_CONTROL, VK_NUMPAD2);
@@ -111,6 +132,9 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
 	RegisterHotKey(hwnd, nPad8, MOD_CONTROL, VK_NUMPAD8);
 	RegisterHotKey(hwnd, nPad9, MOD_CONTROL, VK_NUMPAD9);
 	RegisterHotKey(hwnd, nPad0, MOD_CONTROL, VK_NUMPAD0);
+	RegisterHotKey(hwnd, nPadDot, MOD_CONTROL, VK_DECIMAL);
+	RegisterHotKey(hwnd, nPadPlus, MOD_CONTROL, VK_ADD);
+	RegisterHotKey(hwnd, nPadMinus, MOD_CONTROL, VK_SUBTRACT);
 
 	return TRUE;
 }
@@ -144,4 +168,11 @@ BOOL FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList)
 		}
 	}
 	return FALSE;
+}
+
+BOOL ChangeMonitorPortWindows(std::vector<Monitor> &MonList, int amount)
+{
+	int currentMonitor = GetCurrentMonitor(GetForegroundWindow(), MonitorList);
+	MonList.at(currentMonitor).monOptions.PortWindows += amount;
+	return TRUE;
 }

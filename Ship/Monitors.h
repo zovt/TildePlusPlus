@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include <vector>
-
+#include "Config.h"
 
 class Monitor{
 public:
 	int lB, rB, tB, bB;
 	int width, height;
+	int usableWidth, usableHeight;
 	std::vector<HWND> WindowList;
+	Options monOptions;
 	void SetSize();
 	Monitor(int left, int right, int top, int bottom);
 	~Monitor();

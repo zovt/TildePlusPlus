@@ -9,29 +9,30 @@ void Tile(std::vector<Monitor> MonList)
 	int PortWindowSizeVertical, PortWindowSizeHorizontal, PortWindowMovementVertical, DeckWindowSizeVertical, DeckWindowSizeHorizontal, DeckWindowMovementVertical, DeckWindowMovementHorizontal;
 	for(int i = 0; i < MonList.size(); i++)
 	{
-		PortWindowSizeVertical = MonList.at(i).height/MAX_PORT_WINDOWS;
-		PortWindowSizeHorizontal = 2*(MonList.at(i).width/3);
-		PortWindowMovementVertical = PortWindowSizeVertical;
+		Options &options = MonList.at(i).monOptions;
+		PortWindowSizeVertical = (MonList.at(i).usableHeight-((options.PortWindows-1)*options.PVer))/options.PortWindows;
+		PortWindowSizeHorizontal = 2*(MonList.at(i).usableWidth-(options.PHor))/3;
+		PortWindowMovementVertical = PortWindowSizeVertical+options.PVer;
 
-		if(MonList.at(i).WindowList.size() > MAX_PORT_WINDOWS)
+		if(MonList.at(i).WindowList.size() > options.PortWindows)
 		{
-			DeckWindowSizeVertical = MonList.at(i).height/(MonList.at(i).WindowList.size()-MAX_PORT_WINDOWS);
-			DeckWindowSizeHorizontal = MonList.at(i).width/3;
-			DeckWindowMovementVertical = DeckWindowSizeVertical;
-			DeckWindowMovementHorizontal = PortWindowSizeHorizontal;
+			DeckWindowSizeVertical = (MonList.at(i).usableHeight-((MonList.at(i).WindowList.size()-1)-options.PortWindows)*options.PVer)/(MonList.at(i).WindowList.size()-options.PortWindows);
+			DeckWindowSizeHorizontal = (MonList.at(i).usableWidth-(options.BHor))/3;
+			DeckWindowMovementVertical = DeckWindowSizeVertical + options.PVer;
+			DeckWindowMovementHorizontal = PortWindowSizeHorizontal + options.PHor;
 		}
 
 		idbgmsg("Monitor %d", i);
 		idbgmsg(" has %d windows", MonList.at(i).WindowList.size());
 		for(int j = 0; j < MonList.at(i).WindowList.size(); j++)
 		{
-			if(j<MAX_PORT_WINDOWS)
+			if(j<options.PortWindows)
 			{
-				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB, MonList.at(i).tB + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
+				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB+options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
 			}
 			else
 			{
-				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB + DeckWindowMovementHorizontal, MonList.at(i).tB + DeckWindowMovementVertical*(j-MAX_PORT_WINDOWS), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
+				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB + options.BHor + DeckWindowMovementHorizontal, MonList.at(i).tB + options.BVer + options.TBTSize + DeckWindowMovementVertical*(j-options.PortWindows), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
 			}
 		}
 	}
@@ -98,4 +99,11 @@ BOOL SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList)
 		}
 	}
 	return FALSE;
+}
+
+BOOL ForceAddTiling(HWND hwnd, std::vector<Monitor> &MonList)
+{
+	int currentMonitor = GetCurrentMonitor(hwnd, MonList);
+	MonList.at(currentMonitor).WindowList.push_back(hwnd);
+	return TRUE;
 }

@@ -8,3 +8,4 @@ void TileDeck(HWND hwnd);
 int GetCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList);
 BOOL SwapWindows(HWND hwnd, std::vector<Monitor> &MonList, int positionToSwapTo);
 BOOL SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList);
+BOOL ForceAddTiling(HWND hwnd, std::vector<Monitor> &MonList);

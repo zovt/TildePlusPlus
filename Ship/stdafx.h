@@ -14,7 +14,6 @@
 
 
 // TODO: reference additional headers your program requires here
-#define DEBUGENABLED
 #define ENABLEIMPORTS // Enable the necessary variable imports (see stdafx.h of Libde++)
 #include "dbgmsg.h"
 #include "Window.h"

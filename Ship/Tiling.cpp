@@ -66,17 +66,6 @@ BOOL SwapWindows(HWND hwnd, std::vector<Monitor> &MonList, int positionToSwapTo)
 	HWND middleMan;
 	int currentMonitor = GetCurrentMonitor(hwnd, MonList);
 
-	if(positionToSwapTo > MonList.at(currentMonitor).WindowList.size())
-	{
-		windowLocation = MonList.at(currentMonitor).WindowList.size();
-
-		middleMan = hwnd;
-
-		MonList.at(currentMonitor).WindowList.at(windowLocation) = MonList.at(currentMonitor).WindowList.at(positionToSwapTo-1);
-		MonList.at(currentMonitor).WindowList.at(positionToSwapTo - 1) = middleMan;
-
-		return TRUE;
-	}
 
 
 	for(int i = 0; i < MonList.at(currentMonitor).WindowList.size(); i++)
@@ -87,6 +76,10 @@ BOOL SwapWindows(HWND hwnd, std::vector<Monitor> &MonList, int positionToSwapTo)
 		}
 	}
 	
+	if(positionToSwapTo > MonList.at(currentMonitor).WindowList.size())
+	{
+		positionToSwapTo = MonList.at(currentMonitor).WindowList.size();
+	}
 	middleMan = hwnd;
 
 	MonList.at(currentMonitor).WindowList.at(windowLocation) = MonList.at(currentMonitor).WindowList.at(positionToSwapTo-1);
@@ -122,5 +115,7 @@ BOOL ForceAddTiling(HWND hwnd, std::vector<Monitor> &MonList)
 
 	int currentMonitor = GetCurrentMonitor(hwnd, MonList);
 	MonList.at(currentMonitor).WindowList.push_back(hwnd);
+	WindowList.push_back(hwnd);
+
 	return TRUE;
 }

@@ -1,8 +1,7 @@
-﻿Build started 23/12/2013 15:19:49.
+﻿Build started 24/12/2013 11:04:49.
      1>Project "D:\Github\Tilde++\Tilde++\Tilde++\Tilde++.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /UDEBUGENABLED /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt TildePlusPlus.cpp main.cpp
-         TildePlusPlus.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /UDEBUGENABLED /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt main.cpp
          main.cpp
      1>main.cpp(25): warning C4244: 'argument' : conversion from 'WPARAM' to 'int', possible loss of data
      1>main.cpp(28): warning C4065: switch statement contains 'default' but no 'case' labels
@@ -21,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.26
+Time Elapsed 00:00:01.84

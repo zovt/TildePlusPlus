@@ -3,7 +3,7 @@
 
 const UINT created = 396850;
 const UINT destroyed = 396851;
-ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0, nPadDot, nPadPlus, nPadMinus;
+ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0, nPadDot, nPadPlus, nPadMinus, nPadMultiply, nPadDivide;
 
 __declspec(dllexport) BOOL Main_Update(int callCase, HWND hwnd)
 {
@@ -103,6 +103,18 @@ extern "C" __declspec(dllexport) BOOL Main_HandleHotkeys(int id)
 		Tile(MonitorList);
 		return TRUE;
 	}
+	if(id == nPadMultiply)
+	{
+		UpdateMonitorOptions(MonitorList);
+		Tile(MonitorList);
+		return TRUE;
+	}
+	if(id == nPadDivide)
+	{
+		MessageBoxA(NULL, "Quitting Tilde!", "Ship", MB_OK);
+		exit(0);
+		return TRUE;
+	}
 	return FALSE;
 }
 
@@ -121,6 +133,8 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
 	nPadDot = GlobalAddAtomA("nPadDotHotkey");
 	nPadPlus = GlobalAddAtomA("nPadPlusHotkey");
 	nPadMinus = GlobalAddAtomA("nPadMinusHotkey");
+	nPadMultiply = GlobalAddAtomA("nPadMultiplyHotkey");
+	nPadDivide = GlobalAddAtomA("nPadDivideHotkey");
 
 	RegisterHotKey(hwnd, nPad1, MOD_CONTROL, VK_NUMPAD1);
 	RegisterHotKey(hwnd, nPad2, MOD_CONTROL, VK_NUMPAD2);
@@ -135,6 +149,8 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
 	RegisterHotKey(hwnd, nPadDot, MOD_CONTROL, VK_DECIMAL);
 	RegisterHotKey(hwnd, nPadPlus, MOD_CONTROL, VK_ADD);
 	RegisterHotKey(hwnd, nPadMinus, MOD_CONTROL, VK_SUBTRACT);
+	RegisterHotKey(hwnd, nPadMultiply, MOD_CONTROL, VK_MULTIPLY);
+	RegisterHotKey(hwnd, nPadDivide, MOD_CONTROL, VK_DIVIDE);
 
 	return TRUE;
 }
@@ -174,5 +190,17 @@ BOOL ChangeMonitorPortWindows(std::vector<Monitor> &MonList, int amount)
 {
 	int currentMonitor = GetCurrentMonitor(GetForegroundWindow(), MonitorList);
 	MonList.at(currentMonitor).monOptions.PortWindows += amount;
+	return TRUE;
+}
+
+BOOL UpdateMonitorOptions(std::vector<Monitor> &MonList)
+{
+	for(int i = 0; i < MonList.size(); i++)
+	{
+		MonList.at(i).monOptions.readOptions();
+		Options &options = MonList.at(i).monOptions;
+		MonList.at(i).usableWidth = MonList.at(i).width - options.TBRSize - options.TBLSize - (2*options.BHor); 
+		MonList.at(i).usableHeight = MonList.at(i).height - options.TBBSize - options.TBTSize - (2*options.BVer);
+	}
 	return TRUE;
 }

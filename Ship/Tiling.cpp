@@ -10,6 +10,13 @@ void Tile(std::vector<Monitor> MonList)
 	for(int i = 0; i < MonList.size(); i++)
 	{
 		Options &options = MonList.at(i).monOptions;
+
+		if(MonList.at(i).WindowList.size() == 1)
+		{
+			SetWindowPos(MonList.at(i).WindowList.at(0), HWND_BOTTOM, MonList.at(i).lB + options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer, MonList.at(i).usableWidth, MonList.at(i).usableHeight, NULL);
+			i++;
+		}
+
 		PortWindowSizeVertical = (MonList.at(i).usableHeight-((options.PortWindows-1)*options.PVer))/options.PortWindows;
 		PortWindowSizeHorizontal = 2*(MonList.at(i).usableWidth-(options.PHor))/3;
 		PortWindowMovementVertical = PortWindowSizeVertical+options.PVer;
@@ -17,7 +24,7 @@ void Tile(std::vector<Monitor> MonList)
 		if(MonList.at(i).WindowList.size() > options.PortWindows)
 		{
 			DeckWindowSizeVertical = (MonList.at(i).usableHeight-((MonList.at(i).WindowList.size()-1)-options.PortWindows)*options.PVer)/(MonList.at(i).WindowList.size()-options.PortWindows);
-			DeckWindowSizeHorizontal = (MonList.at(i).usableWidth-(options.BHor))/3;
+			DeckWindowSizeHorizontal = (MonList.at(i).usableWidth-(options.PHor))/3;
 			DeckWindowMovementVertical = DeckWindowSizeVertical + options.PVer;
 			DeckWindowMovementHorizontal = PortWindowSizeHorizontal + options.PHor;
 		}
@@ -61,7 +68,14 @@ BOOL SwapWindows(HWND hwnd, std::vector<Monitor> &MonList, int positionToSwapTo)
 
 	if(positionToSwapTo > MonList.at(currentMonitor).WindowList.size())
 	{
-		return FALSE;
+		windowLocation = MonList.at(currentMonitor).WindowList.size();
+
+		middleMan = hwnd;
+
+		MonList.at(currentMonitor).WindowList.at(windowLocation) = MonList.at(currentMonitor).WindowList.at(positionToSwapTo-1);
+		MonList.at(currentMonitor).WindowList.at(positionToSwapTo - 1) = middleMan;
+
+		return TRUE;
 	}
 
 
@@ -103,6 +117,9 @@ BOOL SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList)
 
 BOOL ForceAddTiling(HWND hwnd, std::vector<Monitor> &MonList)
 {
+	if(!hwnd)
+		return FALSE;
+
 	int currentMonitor = GetCurrentMonitor(hwnd, MonList);
 	MonList.at(currentMonitor).WindowList.push_back(hwnd);
 	return TRUE;

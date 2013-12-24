@@ -116,8 +116,15 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 	RegisterShellHookWindow(hwnd);
 	shellHookMessage = RegisterWindowMessage(TEXT("SHELLHOOK"));
 
+	char locationBuffer[MAX_PATH];
+	char dllName[MAX_PATH];
 
-	hDll = LoadLibrary(L"Ship.dll");
+	GetFullPathNameA("Config.ini",MAX_PATH,locationBuffer, NULL);
+
+	GetPrivateProfileStringA("Tilde","DLL","Ship",dllName,MAX_PATH,locationBuffer);
+
+
+	hDll = LoadLibraryA(dllName);
 	if(!(GetProcAddress(hDll, "Main_Update")))
 	{
 		dbgmsg("Could not find Main_Update!!!!",NULL);

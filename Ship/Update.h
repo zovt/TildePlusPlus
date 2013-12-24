@@ -10,3 +10,4 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd);
 BOOL SendToMonitor(HWND hwnd, std::vector<Monitor> &MonList);
 BOOL FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList);
 BOOL ChangeMonitorPortWindows(std::vector<Monitor> &MonList, int amount);
+BOOL UpdateMonitorOptions(std::vector<Monitor> &MonList);

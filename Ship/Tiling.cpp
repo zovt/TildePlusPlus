@@ -14,6 +14,10 @@ void Tile(std::vector<Monitor> MonList)
 		if(MonList.at(i).WindowList.size() == 1)
 		{
 			SetWindowPos(MonList.at(i).WindowList.at(0), HWND_BOTTOM, MonList.at(i).lB + options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer, MonList.at(i).usableWidth, MonList.at(i).usableHeight, NULL);
+			if(MonList.size() <= i + 1)
+			{
+				return;
+			}
 			i++;
 		}
 

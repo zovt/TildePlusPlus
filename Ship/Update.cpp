@@ -3,7 +3,7 @@
 
 const UINT created = 396850;
 const UINT destroyed = 396851;
-ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0, nPadDot, nPadPlus, nPadMinus, nPadMultiply, nPadDivide;
+ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0, nPadDot, nPadPlus, nPadMinus, nPadMultiply, nPadDivide, nPadEnter, nPadEnterAlt;
 
 __declspec(dllexport) BOOL Main_Update(int callCase, HWND hwnd)
 {
@@ -115,6 +115,17 @@ extern "C" __declspec(dllexport) BOOL Main_HandleHotkeys(int id)
 		exit(0);
 		return TRUE;
 	}
+	if(id == nPadEnter)
+	{
+		HWND hwnd = GetForegroundWindow();
+		RemoveWindowBorders(hwnd);
+		return TRUE;
+	}
+	if(id == nPadEnterAlt)
+	{
+		RemoveWindowBorders(MonitorList);
+		return TRUE;
+	}
 	return FALSE;
 }
 
@@ -135,6 +146,8 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
 	nPadMinus = GlobalAddAtomA("nPadMinusHotkey");
 	nPadMultiply = GlobalAddAtomA("nPadMultiplyHotkey");
 	nPadDivide = GlobalAddAtomA("nPadDivideHotkey");
+	nPadEnter = GlobalAddAtomA("nPadEnter");
+	nPadEnterAlt = GlobalAddAtomA("nPadEnterAlt");
 
 	RegisterHotKey(hwnd, nPad1, MOD_CONTROL, VK_NUMPAD1);
 	RegisterHotKey(hwnd, nPad2, MOD_CONTROL, VK_NUMPAD2);
@@ -151,6 +164,8 @@ extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
 	RegisterHotKey(hwnd, nPadMinus, MOD_CONTROL, VK_SUBTRACT);
 	RegisterHotKey(hwnd, nPadMultiply, MOD_CONTROL, VK_MULTIPLY);
 	RegisterHotKey(hwnd, nPadDivide, MOD_CONTROL, VK_DIVIDE);
+	RegisterHotKey(hwnd, nPadEnter, MOD_CONTROL, VK_RETURN);
+	RegisterHotKey(hwnd, nPadEnterAlt, MOD_CONTROL | MOD_ALT, VK_RETURN);
 
 	return TRUE;
 }

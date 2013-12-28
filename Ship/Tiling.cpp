@@ -13,7 +13,7 @@ void Tile(std::vector<Monitor> MonList)
 
 		if(MonList.at(i).WindowList.size() == 1)
 		{
-			SetWindowPos(MonList.at(i).WindowList.at(0), HWND_BOTTOM, MonList.at(i).lB + options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer, MonList.at(i).usableWidth, MonList.at(i).usableHeight, NULL);
+			SetWindowPos(MonList.at(i).WindowList.at(0), HWND_TOP, MonList.at(i).lB + options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer, MonList.at(i).usableWidth, MonList.at(i).usableHeight, NULL);
 			if(MonList.size() <= i + 1)
 			{
 				return;
@@ -39,11 +39,11 @@ void Tile(std::vector<Monitor> MonList)
 		{
 			if(j<options.PortWindows)
 			{
-				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB+options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
+				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_TOP, MonList.at(i).lB+options.BHor, MonList.at(i).tB + options.TBTSize + options.BVer + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
 			}
 			else
 			{
-				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_BOTTOM, MonList.at(i).lB + options.BHor + DeckWindowMovementHorizontal, MonList.at(i).tB + options.BVer + options.TBTSize + DeckWindowMovementVertical*(j-options.PortWindows), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
+				SetWindowPos(MonList.at(i).WindowList.at(j), HWND_TOP, MonList.at(i).lB + options.BHor + DeckWindowMovementHorizontal, MonList.at(i).tB + options.BVer + options.TBTSize + DeckWindowMovementVertical*(j-options.PortWindows), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
 			}
 		}
 	}
@@ -121,5 +121,25 @@ BOOL ForceAddTiling(HWND hwnd, std::vector<Monitor> &MonList)
 	MonList.at(currentMonitor).WindowList.push_back(hwnd);
 	WindowList.push_back(hwnd);
 
+	return TRUE;
+}
+
+BOOL RemoveWindowBorders(std::vector<Monitor> &MonList)
+{
+	for(int i = 0; i < MonList.size(); i++)
+	{
+		for(int j = 0; j < MonList.at(i).WindowList.size(); j++)
+		{
+			SetWindowLong(MonList.at(i).WindowList.at(j), GWL_STYLE, GetWindowLong(MonList.at(i).WindowList.at(j), GWL_STYLE) & ~(WS_CAPTION));
+			SetWindowPos(MonList.at(i).WindowList.at(j), NULL, NULL, NULL, NULL, NULL, SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
+		}
+	}
+	return TRUE;
+}
+
+BOOL RemoveWindowBorders(HWND &hwnd)
+{
+	SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~(WS_CAPTION));
+	SetWindowPos(hwnd, NULL, NULL, NULL, NULL, NULL, SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 	return TRUE;
 }

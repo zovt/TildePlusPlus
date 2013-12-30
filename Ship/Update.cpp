@@ -19,6 +19,12 @@ __declspec(dllexport) BOOL Main_Update(int callCase, HWND hwnd)
 		Tile(MonitorList);
 		return TRUE;
 	}
+	else if(callCase == 2)
+	{
+		FindDestroyedWindow(hwnd, MonitorList);
+		Tile(MonitorList);
+		return TRUE;
+	}
 	return FALSE;
 }
 

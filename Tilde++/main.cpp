@@ -9,7 +9,7 @@ UINT shellHookMessage;
 updateFunction uFunc;
 handleHotkeyFunction hhFunc;
 registerHotkeyFunction rhFunc;
-
+HHOOK hhook;
 
 LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -76,16 +76,10 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		dbgmsg("Is Enabled: %d",IsWindowEnabled(tempWindowList.at(i)));
 		if(IsWindowVisible(tempWindowList.at(i)) && GetWindowTextA(tempWindowList.at(i), buffer, 64)!=0 && strcmp(buffer, "Program Manager")!=0 && strcmp(buffer, " ")!=0 && strcmp(buffer,"")!=0)
 		{
-			if(fakewindowpassed)
-			{
-				sendWindowsToWindowArray(tempWindowList.at(i));
-				idbgmsg("Window sent to array",NULL);
-				idbgmsg("Window HWND in array: %p", WindowList.at(WindowList.size()-1));
-				idbgmsg("Window Title: %d",buffer);
-			}
-			{
-				fakewindowpassed = TRUE;
-			}
+			sendWindowsToWindowArray(tempWindowList.at(i));
+			idbgmsg("Window sent to array",NULL);
+			idbgmsg("Window HWND in array: %p", WindowList.at(WindowList.size()-1));
+			idbgmsg("Window Title: %d",buffer);
 		}
 	}
 	WindowList.erase(WindowList.begin());

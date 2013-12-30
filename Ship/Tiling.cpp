@@ -19,6 +19,7 @@ void Tile(std::vector<Monitor> MonList)
 				return;
 			}
 			i++;
+			options = MonList.at(i).monOptions;
 		}
 
 		PortWindowSizeVertical = (MonList.at(i).usableHeight-((options.PortWindows-1)*options.PVer))/options.PortWindows;

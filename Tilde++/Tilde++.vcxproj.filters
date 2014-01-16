@@ -21,12 +21,18 @@
     <ClInclude Include="TildePlusPlus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TildePlusPlus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vars.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

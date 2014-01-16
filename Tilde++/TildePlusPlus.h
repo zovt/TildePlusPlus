@@ -1,9 +1,19 @@
 #define WIN32_LEAN_AND_MEAN
 #define ENABLEIMPORTS // Enable the necessary variable imports (see stdafx.h of Libde++)
 #include <Windows.h>
-#include <vector>
+#include "Vars.h"
 #include "dbgmsg.h"
-typedef BOOL (*updateFunction)(int, HWND);
-typedef BOOL (*registerHotkeyFunction)(HWND(&));
-typedef BOOL (*handleHotkeyFunction)(int);
-BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList, updateFunction (&function));
+#include "Window.h"
+#include "Monitor.h"
+#include "Functions.h"
+
+BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList);
+int SendWindowToMonitor(HWND &hwnd, std::vector<Monitor> &MonList);
+int FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList);
+
+
+BOOL RegisterMainHotkeys(HWND &hwnd);
+BOOL ChangeDll(int direction);
+int FindCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList);
+
+

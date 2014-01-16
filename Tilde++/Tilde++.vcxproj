@@ -146,10 +146,12 @@
   <ItemGroup>
     <ClInclude Include="main.h" />
     <ClInclude Include="TildePlusPlus.h" />
+    <ClInclude Include="Vars.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TildePlusPlus.cpp" />
+    <ClCompile Include="Vars.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

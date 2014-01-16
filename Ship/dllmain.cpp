@@ -1,7 +1,5 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
-#include "Tiling.h"
-#include "Update.h"
 #include "Window.h"
 
 const PCWSTR g_szClassName = L"shipWindow";
@@ -17,9 +15,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	{
 	case DLL_PROCESS_ATTACH:
 		printf("########## Ship loaded! ##########\n");
-		EnumDisplayMonitors(NULL, NULL, GetMonitors, NULL);
-		SortWindowsToMonitors(WindowList, MonitorList);
-		Tile(MonitorList);
+	
+		//Tile(MonitorList);
 		
 
 	case DLL_THREAD_ATTACH:

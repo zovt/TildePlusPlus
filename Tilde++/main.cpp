@@ -1,6 +1,4 @@
 #include "main.h"
-#include "dbgmsg.h"
-#include "Window.h"
 #include <iostream>
 
 const PCWSTR g_szClassName = L"myWindowClass";
@@ -10,6 +8,8 @@ updateFunction uFunc;
 handleHotkeyFunction hhFunc;
 registerHotkeyFunction rhFunc;
 HHOOK hhook;
+WIN32_FIND_DATAA tFindData;
+HANDLE tHandle;
 
 LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -18,11 +18,22 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	default:
 		if(msg == shellHookMessage)
 		{
-			UpdateWindowList(wParam, lParam, WindowList, uFunc);
+			UpdateWindowList(wParam, lParam, WindowList);
 		}
 		if(msg == WM_HOTKEY)
 		{
+			if(wParam == arrowKeyRight)
+			{
+				ChangeDll(1);
+			}
+			else if(wParam == arrowKeyLeft)
+			{
+				ChangeDll(-1);
+			}
+			else
+			{
 			hhFunc(wParam);
+			}
 		}
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
@@ -43,7 +54,6 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 	HWND hwnd;
 	MSG msg;
 	BOOL bRet;
-	HINSTANCE hDll;
 
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = 0;
@@ -64,7 +74,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 	bool fakewindowpassed = FALSE;
 
 	tagWINDOWINFO wi;
-
+	EnumDisplayMonitors(NULL, NULL, GetMonitors, NULL);
 	EnumWindows(sendWindowsToTempWindowArray, NULL);
 
 	WindowList.resize(numWindows);
@@ -77,6 +87,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		if(IsWindowVisible(tempWindowList.at(i)) && GetWindowTextA(tempWindowList.at(i), buffer, 64)!=0 && strcmp(buffer, "Program Manager")!=0 && strcmp(buffer, " ")!=0 && strcmp(buffer,"")!=0)
 		{
 			sendWindowsToWindowArray(tempWindowList.at(i));
+			SendWindowToMonitor(tempWindowList.at(i), MonitorList);
 			idbgmsg("Window sent to array",NULL);
 			idbgmsg("Window HWND in array: %p", WindowList.at(WindowList.size()-1));
 			idbgmsg("Window Title: %d",buffer);
@@ -92,7 +103,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		idbgmsg("Window %d style: %p", i, dwBuf);
 	}
 	dbgmsg("numWindows: %d", numWindows);
-	
+
 	if(!RegisterClassEx(&wc))
 	{
 		MessageBox(NULL, L"Window Registration Failed", L"Error!!", MB_ICONEXCLAMATION | MB_OK);
@@ -108,46 +119,30 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		HWND_MESSAGE, NULL, hInstance, NULL);
 
 	RegisterShellHookWindow(hwnd);
+	RegisterMainHotkeys(hwnd);
 	shellHookMessage = RegisterWindowMessage(TEXT("SHELLHOOK"));
 
 	char locationBuffer[MAX_PATH];
 	char dllName[MAX_PATH];
 
+
 	GetFullPathNameA("Config.ini",MAX_PATH,locationBuffer, NULL);
 
 	GetPrivateProfileStringA("Tilde","DLL","Ship",dllName,MAX_PATH,locationBuffer);
 
-
-	hDll = LoadLibraryA(dllName);
-	if(!(GetProcAddress(hDll, "Main_Update")))
+	for(int i = 0; i < MonitorList.size(); i++)
 	{
-		dbgmsg("Could not find Main_Update!!!!",NULL);
-		dbgmsg("Last Error: %d", GetLastError());
+		if(!(MonitorList.at(i).SetFunctions(dllName)))
+			exit(404);
+			//MessageBoxA(NULL, "No functions were found!", "Error", MB_ICONERROR | MB_OK);
 	}
-	if(!(GetProcAddress(hDll, "Main_RegisterHotkeys")))
+	
+	tHandle = FindFirstFileA("*.dll",&tFindData);
+	dllList.push_back(tFindData.cFileName);
+	while (FindNextFileA(tHandle,&tFindData))
 	{
-		dbgmsg("Could not find Main_RegisterHotkeys!",NULL);
+		dllList.push_back(tFindData.cFileName);
 	}
-	if(!(GetProcAddress(hDll, "Main_HandleHotkeys")))
-	{
-		dbgmsg("Could not find Main_HandleHotkeys!",NULL);
-	}
-	if(!(uFunc = (updateFunction)GetProcAddress(hDll, "Main_Update")))
-	{
-		dbgmsg("Could not find Main_Update!!",NULL);
-	}
-	if(!(rhFunc = (registerHotkeyFunction)GetProcAddress(hDll, "Main_RegisterHotkeys")))
-	{
-		dbgmsg("Could not find Main_RegisterHotkeys!",NULL);
-	}
-	if(!(hhFunc = (handleHotkeyFunction)GetProcAddress(hDll, "Main_HandleHotkeys")))
-	{
-		dbgmsg("Could not find Main_HandleHotkeys!",NULL);
-	}
-
-	rhFunc(hwnd);
-
-
 
 	while( (bRet = GetMessage( &msg, NULL, 0, 0 )) != 0 ) 
 	{

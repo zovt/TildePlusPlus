@@ -1,16 +1,21 @@
-﻿Build started 16/01/2014 14:33:41.
+﻿Build started 21/01/2014 13:41:07.
      1>Project "D:\Github\Tilde++\Tilde++\Equality\Equality.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++/ /Zi /nologo /W3 /WX- /sdl /Od /D DEBUGENABLED /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D EQUALITY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt dllmain.cpp
-         Skipping... (no relevant changes detected)
-         dllmain.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++/ /Zi /nologo /W3 /WX- /sdl /Od /D DEBUGENABLED /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D EQUALITY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\Equality.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt Tiling.cpp
+         Tiling.cpp
+     1>Tiling.cpp(14): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>Tiling.cpp(15): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>Tiling.cpp(19): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>Tiling.cpp(20): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Github\Tilde++\Tilde++\x64\Debug\Equality.dll" /INCREMENTAL /NOLOGO ../x64/debug/Libde++.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Github\Tilde++\Tilde++\x64\Debug\Equality.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Github\Tilde++\Tilde++\x64\Debug\Equality.lib" /MACHINE:X64 /DLL x64\Debug\dllmain.obj
          x64\Debug\Equality.obj
          x64\Debug\stdafx.obj
+         x64\Debug\Tiling.obj
+         x64\Debug\Update.obj
          Equality.vcxproj -> D:\Github\Tilde++\Tilde++\x64\Debug\Equality.dll
      1>Done Building Project "D:\Github\Tilde++\Tilde++\Equality\Equality.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.69
+Time Elapsed 00:00:00.64

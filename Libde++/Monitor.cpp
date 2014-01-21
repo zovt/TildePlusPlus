@@ -30,9 +30,16 @@ BOOL Monitor::SetFunctions(char dllName[MAX_PATH])
 	{
 		return FALSE;
 	}
-	if((uFunc = (updateFunction)GetProcAddress(uDll, "Main_Update")) &&
-		(rhFunc = (registerHotkeyFunction)GetProcAddress(uDll, "Main_RegisterHotkeys")) &&
-		(hhFunc = (handleHotkeyFunction)GetProcAddress(uDll, "Main_HandleHotkeys")))
+	uFunc = (updateFunction)GetProcAddress(uDll, "Main_Update");
+	rhFunc = (registerHotkeyFunction)GetProcAddress(uDll, "Main_RegisterHotkeys");
+	hhFunc = (handleHotkeyFunction)GetProcAddress(uDll, "Main_HandleHotkeys");
+	tFunc = (tileFunction)GetProcAddress(uDll,"Main_Tile");
+
+	if((uFunc) &&
+		(rhFunc) &&
+		(hhFunc) &&
+		(tFunc))
+
 	{
 		uDllName = dllName;
 		return TRUE;
@@ -86,4 +93,20 @@ TILDEAPI BOOL SortWindowsToMonitors(std::vector<HWND> &WinList, std::vector<Moni
 		}
 	}
 	return TRUE;
+}
+
+
+TILDEAPI int FindCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList)
+{
+	RECT rect;
+	GetWindowRect(hwnd, &rect);
+	InflateRect(&rect, -2, -2);
+	for(int j = 0; j < MonList.size(); j++)
+	{
+		if((MonList.at(j).lB <= rect.left && rect.left <= MonList.at(j).rB) && (MonList.at(j).tB <= rect.bottom && rect.bottom <= MonList.at(j).bB))
+		{
+			return j;
+		}
+	}
+	return FALSE;
 }

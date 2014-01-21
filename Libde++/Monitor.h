@@ -15,6 +15,8 @@ public:
 	updateFunction uFunc;
 	registerHotkeyFunction rhFunc;
 	handleHotkeyFunction hhFunc;
+	tileFunction tFunc;
+
 	void SetSize();
 	TILDEAPI BOOL SetFunctions(char dllName[MAX_PATH]);
 
@@ -27,3 +29,5 @@ TILDEAPI BOOL CALLBACK GetMonitors(HMONITOR hMon, HDC hdcMon, LPRECT lprcMon, LP
 TILDEAPI BOOL SortWindowsToMonitors(std::vector<HWND> &WinList, std::vector<Monitor> &MonList);
 
 TILDEAPI std::vector<Monitor> MonitorList;
+
+TILDEAPI int FindCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList);

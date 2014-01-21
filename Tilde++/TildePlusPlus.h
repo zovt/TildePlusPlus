@@ -14,6 +14,7 @@ int FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList);
 
 BOOL RegisterMainHotkeys(HWND &hwnd);
 BOOL ChangeDll(int direction);
-int FindCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList);
+
+BOOL UpdateMonitorHotkeys(int Monitor, HWND hwnd);
 
 

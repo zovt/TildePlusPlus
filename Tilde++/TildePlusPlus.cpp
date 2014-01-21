@@ -11,7 +11,7 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
 	{
 		WinList.push_back(hwndP);
 		CurrentMonitor = SendWindowToMonitor(hwndP, MonitorList);
-		MonitorList.at(CurrentMonitor).uFunc(1, hwndP, CurrentMonitor);
+		MonitorList.at(CurrentMonitor).uFunc(1, hwndP);
 		//idbgmsg("Window Created: %p", hwndP);
 		return TRUE;
 	}
@@ -24,7 +24,7 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
 				CurrentMonitor = FindDestroyedWindow(hwndP, MonitorList);
 				WinList.erase(WinList.begin() + i);
 				WinList.resize(WinList.size());
-				MonitorList.at(CurrentMonitor).uFunc(0, hwndP, CurrentMonitor);
+				MonitorList.at(CurrentMonitor).uFunc(0, hwndP);
 				idbgmsg("Window Destroyed: %d", hwndP);
 				return TRUE;
 			}
@@ -51,8 +51,8 @@ BOOL RegisterMainHotkeys(HWND &hwnd)
 	arrowKeyRight = GlobalAddAtomA("arrowKeyRight");
 	arrowKeyLeft = GlobalAddAtomA("arrowKeyLeft");
 
-	RegisterHotKey(hwnd, arrowKeyRight, MOD_CONTROL, VK_RIGHT);
-	RegisterHotKey(hwnd, arrowKeyLeft, MOD_CONTROL, VK_LEFT);
+	RegisterHotKey(hwnd, arrowKeyRight, MOD_CONTROL | MOD_WIN, VK_RIGHT);
+	RegisterHotKey(hwnd, arrowKeyLeft, MOD_CONTROL | MOD_WIN, VK_LEFT);
 
 	return TRUE;
 }
@@ -81,7 +81,7 @@ int SendWindowToMonitor(HWND &hwnd, std::vector<Monitor> &MonList)
 
 BOOL ChangeDll(int direction)
 {
-	int cDll;
+	int cDll = 0;
 	int cMon = FindCurrentMonitor(GetForegroundWindow(), MonitorList);
 	for(int i = 0; i < dllList.size(); i++)
 	{
@@ -91,24 +91,20 @@ BOOL ChangeDll(int direction)
 			break;
 		}
 	}
-	MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).SetFunctions((char*)dllList.at(cDll + direction).c_str());
-	return TRUE;
+	if((cDll + direction > dllList.size() - 1)||(cDll + direction < 0))
+	{
+		return FALSE;
+	}
+	else
+	{
+		if(MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).SetFunctions((char*)dllList.at(cDll + direction).c_str()))
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
 }
 
-int FindCurrentMonitor(HWND hwnd, std::vector<Monitor> &MonList)
-{
-	RECT rect;
-	GetWindowRect(hwnd, &rect);
-	InflateRect(&rect, -2, -2);
-	for(int j = 0; j < MonList.size(); j++)
-	{
-		if((MonList.at(j).lB <= rect.left && rect.left <= MonList.at(j).rB) && (MonList.at(j).tB <= rect.bottom && rect.bottom <= MonList.at(j).bB))
-		{
-			return j;
-		}
-	}
-	return FALSE;
-}
 
 int FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList)
 {
@@ -124,4 +120,13 @@ int FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList)
                 }
         }
         return 0;
+}
+
+BOOL UpdateMonitorHotkeys(int currentMonitor, HWND hwnd)
+{
+	if(MonitorList.at(currentMonitor).rhFunc(hwnd))
+	{
+		return TRUE;
+	}
+	return FALSE;
 }

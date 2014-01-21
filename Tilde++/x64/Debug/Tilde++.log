@@ -1,16 +1,6 @@
-﻿Build started 16/01/2014 15:48:35.
+﻿Build started 21/01/2014 13:29:50.
      1>Project "D:\Github\Tilde++\Tilde++\Tilde++\Tilde++.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /D DEBUGENABLED /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt main.cpp
-         main.cpp
-     1>main.cpp(35): warning C4244: 'argument' : conversion from 'WPARAM' to 'int', possible loss of data
-     1>main.cpp(39): warning C4065: switch statement contains 'default' but no 'case' labels
-     1>main.cpp(97): warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
-     1>main.cpp(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>main.cpp(102): warning C4002: too many actual parameters for macro 'idbgmsg'
-     1>main.cpp(103): warning C4002: too many actual parameters for macro 'idbgmsg'
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Github\Tilde++\Tilde++\x64\Debug\Tilde++.exe" /INCREMENTAL /NOLOGO ../x64/Debug/Libde++.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Github\Tilde++\Tilde++\x64\Debug\Tilde++.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Github\Tilde++\Tilde++\x64\Debug\Tilde++.lib" /MACHINE:X64 x64\Debug\main.obj
          x64\Debug\TildePlusPlus.obj
          x64\Debug\Vars.obj
@@ -19,4 +9,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.72
+Time Elapsed 00:00:00.82

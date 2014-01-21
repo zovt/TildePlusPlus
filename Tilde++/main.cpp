@@ -24,15 +24,32 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			if(wParam == arrowKeyRight)
 			{
-				ChangeDll(1);
+				if(!(ChangeDll(1)))
+				{
+					idbgmsg("Failed to change DLLs!",NULL);
+				}
 			}
 			else if(wParam == arrowKeyLeft)
 			{
-				ChangeDll(-1);
+				if(!(ChangeDll(-1)))
+				{
+					idbgmsg("Falied to change DLLs!",NULL);
+				}
 			}
 			else
 			{
-			hhFunc(wParam);
+				if(!(MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).hhFunc(wParam)))
+				{
+					if(FindCurrentMonitor(GetForegroundWindow(), MonitorList)+1 >= MonitorList.size())
+					{
+						return MonitorList.at(0).hhFunc(wParam);
+					} 
+					else
+					{
+						return MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).hhFunc(wParam);
+					}
+				return TRUE;
+				}
 			}
 		}
 		return DefWindowProc(hwnd, msg, wParam, lParam);
@@ -110,15 +127,23 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 		return 0;
 	}
 
-	hwnd = CreateWindowEx(
+	if(!(hwnd = CreateWindowEx(
 		WS_EX_APPWINDOW,
 		g_szClassName,
 		L"Tilde++",
 		WS_VISIBLE,
 		CW_USEDEFAULT, CW_USEDEFAULT, 240,120,
-		HWND_MESSAGE, NULL, hInstance, NULL);
-
-	RegisterShellHookWindow(hwnd);
+		HWND_MESSAGE, NULL, hInstance, NULL)))
+	{
+		int error = GetLastError();
+		exit(error);
+	}
+	
+	if(!(RegisterShellHookWindow(hwnd)))
+	{
+		int error = GetLastError();
+		exit(error);
+	}
 	RegisterMainHotkeys(hwnd);
 	shellHookMessage = RegisterWindowMessage(TEXT("SHELLHOOK"));
 
@@ -128,19 +153,24 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 
 	GetFullPathNameA("Config.ini",MAX_PATH,locationBuffer, NULL);
 
-	GetPrivateProfileStringA("Tilde","DLL","Ship",dllName,MAX_PATH,locationBuffer);
+	GetPrivateProfileStringA("Tilde","DLL","Ship.dll",dllName,MAX_PATH,locationBuffer);
 
 	for(int i = 0; i < MonitorList.size(); i++)
 	{
 		if(!(MonitorList.at(i).SetFunctions(dllName)))
 			exit(404);
-			//MessageBoxA(NULL, "No functions were found!", "Error", MB_ICONERROR | MB_OK);
 	}
+	UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(),MonitorList), hwnd);
+
 	
 	tHandle = FindFirstFileA("*.dll",&tFindData);
 	dllList.push_back(tFindData.cFileName);
 	while (FindNextFileA(tHandle,&tFindData))
 	{
+		if(!(strcmp(tFindData.cFileName, "Libde++.dll")))
+		{
+			continue;
+		}
 		dllList.push_back(tFindData.cFileName);
 	}
 

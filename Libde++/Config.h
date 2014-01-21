@@ -3,10 +3,10 @@
 // defining an Options class for easy access to options
 class Options {
 public:
-	int screenWidth, screenHeight, TBLSize, TBRSize, TBTSize, TBBSize, BVer, BHor, PVer, PHor, PortWindows;
+	int screenWidth, screenHeight, TBLSize, TBRSize, TBTSize, TBBSize, BVer, BHor, PVer, PHor;
 	void readOptions();
 	Options();
 	~Options();
 };
 
-extern "C" Options * options;
+extern "C" TILDEAPI Options * options;

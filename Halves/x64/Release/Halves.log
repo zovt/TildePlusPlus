@@ -1,0 +1,20 @@
+﻿Build started 21/01/2014 20:44:02.
+     1>Project "D:\Github\Tilde++\Tilde++\Halves\Halves.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++/ /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D HALVES_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Release\Halves.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt Tiling.cpp
+         Tiling.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Github\Tilde++\Tilde++\x64\Release\Halves.dll" /INCREMENTAL:NO /NOLOGO ../x64/Release/Libde++.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Github\Tilde++\Tilde++\x64\Release\Halves.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Github\Tilde++\Tilde++\x64\Release\Halves.lib" /MACHINE:X64 /DLL x64\Release\dllmain.obj
+         x64\Release\Halves.obj
+         x64\Release\stdafx.obj
+         x64\Release\Tiling.obj
+         x64\Release\Update.obj
+            Creating library D:\Github\Tilde++\Tilde++\x64\Release\Halves.lib and object D:\Github\Tilde++\Tilde++\x64\Release\Halves.exp
+         Generating code
+         Finished generating code
+         Halves.vcxproj -> D:\Github\Tilde++\Tilde++\x64\Release\Halves.dll
+     1>Done Building Project "D:\Github\Tilde++\Tilde++\Halves\Halves.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.06

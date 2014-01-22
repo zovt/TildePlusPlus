@@ -3,22 +3,21 @@
 
 ATOM nPad1, nPad2, nPad3, nPad4, nPad5, nPad6, nPad7, nPad8, nPad9, nPad0, nPadDot, nPadPlus, nPadMinus, nPadMultiply, nPadDivide, nPadEnter, nPadEnterAlt;
 
-__declspec(dllexport) BOOL Main_Update(int callCase, HWND hwnd)
+__declspec(dllexport) BOOL Main_Update(int callCase, HWND hwnd, int curMon)
 {
-	int CurrentMonitor = FindCurrentMonitor(GetForegroundWindow(), MonitorList);
 	if(callCase == 1)
 	{
-		Main_Tile(CurrentMonitor);
+		Main_Tile(curMon);
 		return TRUE;
 	}
 	else if(callCase == 0)
 	{
-		Main_Tile(CurrentMonitor);
+		Main_Tile(curMon);
 		return TRUE;
 	}
 	else if(callCase == 2)
 	{
-		Main_Tile(CurrentMonitor);
+		Main_Tile(curMon);
 		return TRUE;
 	}
 	return FALSE;
@@ -96,18 +95,20 @@ extern "C" __declspec(dllexport) BOOL Main_HandleHotkeys(int id)
 		Main_Tile(CurrentMonitor);
 		return TRUE;
 	}
+	*/
 	if(id == nPadPlus)
 	{
-		ChangeMonitorPortWindows(MonitorList, 1);
+		ChangeMonitorPortWindows(1);
 		Main_Tile(CurrentMonitor);
 		return TRUE;
 	}
 	if(id == nPadMinus)
 	{
-		ChangeMonitorPortWindows(MonitorList, -1);
+		ChangeMonitorPortWindows(-1);
 		Main_Tile(CurrentMonitor);
 		return TRUE;
 	}
+	/*
 	if(id == nPadMultiply)
 	{
 		UpdateMonitorOptions(MonitorList);
@@ -254,4 +255,10 @@ int SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList)
 		}
 	}
 	return FALSE;
+}
+
+BOOL ChangeMonitorPortWindows(int amount)
+{
+	PortWindowNumberList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).value += amount;
+	return TRUE;
 }

@@ -11,7 +11,7 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
 	{
 		WinList.push_back(hwndP);
 		CurrentMonitor = SendWindowToMonitor(hwndP, MonitorList);
-		MonitorList.at(CurrentMonitor).uFunc(1, hwndP);
+		MonitorList.at(CurrentMonitor).uFunc(1, hwndP, CurrentMonitor);
 		//idbgmsg("Window Created: %p", hwndP);
 		return TRUE;
 	}
@@ -24,7 +24,7 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
 				CurrentMonitor = FindDestroyedWindow(hwndP, MonitorList);
 				WinList.erase(WinList.begin() + i);
 				WinList.resize(WinList.size());
-				MonitorList.at(CurrentMonitor).uFunc(0, hwndP);
+				MonitorList.at(CurrentMonitor).uFunc(0, hwndP, CurrentMonitor);
 				idbgmsg("Window Destroyed: %d", hwndP);
 				return TRUE;
 			}

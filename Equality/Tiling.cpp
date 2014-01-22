@@ -11,16 +11,15 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 	double sqrtWin = sqrt(MonitorList.at(currentMonitor).WindowList.size());
 	if((sqrtWin - floor(sqrtWin)) < ((ceil(sqrtWin) - sqrtWin)))
 	{
-		rows = floor(sqrtWin);
-		cols = ceil(sqrtWin);
+		cols = floor(sqrtWin);
 	}
 	else 
 	{
 		cols = ceil(sqrtWin);
-		rows = ceil(sqrtWin);
 	}
-	WindowSizeHorizontal = (MonitorList.at(currentMonitor).usableWidth - options->BHor) / cols;
-	WindowSizeVertical = (MonitorList.at(currentMonitor).usableHeight-(options->BVer)) / rows;
+	rows = ceil(sqrtWin);
+	WindowSizeHorizontal = (MonitorList.at(currentMonitor).usableWidth - options->PHor) / cols;
+	WindowSizeVertical = (MonitorList.at(currentMonitor).usableHeight-(options->PVer)) / rows;
 
 	WindowMovementHorizontal = WindowSizeHorizontal + options->PHor;
 	WindowMovementVertical = WindowSizeVertical + options->PVer;

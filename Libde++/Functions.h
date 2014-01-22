@@ -3,5 +3,5 @@
 
 typedef BOOL (*registerHotkeyFunction)(HWND(&));
 typedef BOOL (*handleHotkeyFunction)(int);
-typedef BOOL (*updateFunction)(int, HWND);
+typedef BOOL (*updateFunction)(int, HWND, int);
 typedef void  (*tileFunction)(int);

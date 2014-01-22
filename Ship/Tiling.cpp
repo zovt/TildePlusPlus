@@ -3,14 +3,6 @@
 #include "Config.h"
 #include <iostream>
 int X=0, Y=0;
-struct PortWindowNumber
-{
-	PortWindowNumber(int n)
-	{
-		value = n;
-	}
-	int value;
-};
 
 std::vector<PortWindowNumber> PortWindowNumberList;
 	

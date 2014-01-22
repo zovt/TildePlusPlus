@@ -28,6 +28,8 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					idbgmsg("Failed to change DLLs!",NULL);
 				}
+				UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
+				MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
 			}
 			else if(wParam == arrowKeyLeft)
 			{
@@ -35,6 +37,8 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					idbgmsg("Falied to change DLLs!",NULL);
 				}
+				UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
+				MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
 			}
 			else
 			{

@@ -28,8 +28,11 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					idbgmsg("Failed to change DLLs!",NULL);
 				}
-				UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
-				MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
+				else
+				{
+					UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
+					MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
+				}
 			}
 			else if(wParam == arrowKeyLeft)
 			{
@@ -37,8 +40,11 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					idbgmsg("Falied to change DLLs!",NULL);
 				}
-				UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
-				MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
+				else
+				{
+					UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
+					MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
+				}
 			}
 			else if(wParam == arrowKeyDown)
 			{
@@ -177,7 +183,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 	dllList.push_back(tFindData.cFileName);
 	while (FindNextFileA(tHandle,&tFindData))
 	{
-		if(!(strcmp(tFindData.cFileName, "Libde++.dll")))
+		if((!(strcmp(tFindData.cFileName, "Libde++.dll"))||(!(strcmp(tFindData.cFileName, "msvcr110.dll")))||(!(strcmp(tFindData.cFileName, "msvcp110.dll")))))
 		{
 			continue;
 		}

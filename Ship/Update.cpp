@@ -136,7 +136,7 @@ extern "C" __declspec(dllexport) BOOL Main_HandleHotkeys(int id)
 	return FALSE;
 }
 
-extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND &hwnd)
+extern "C" __declspec(dllexport) BOOL Main_RegisterHotkeys(HWND hwnd)
 {
 	nPad1 = GlobalAddAtomA("nPad1Hotkey");
 	nPad2 = GlobalAddAtomA("nPad2Hotkey");

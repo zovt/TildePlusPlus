@@ -5,6 +5,11 @@
 
 extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 {
+	if(MonitorList.at(currentMonitor).WindowList.size() == 1)
+	{
+			SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(0), HWND_TOP, MonitorList.at(currentMonitor).lB + options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer, MonitorList.at(currentMonitor).usableWidth, MonitorList.at(currentMonitor).usableHeight, NULL);
+			return;
+	}
 	int rows, cols, WindowSizeHorizontal, WindowSizeVertical, WindowMovementHorizontal, WindowMovementVertical;
 	int currentWindow = 0;
 

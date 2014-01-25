@@ -50,9 +50,11 @@ BOOL RegisterMainHotkeys(HWND &hwnd)
 {
 	arrowKeyRight = GlobalAddAtomA("arrowKeyRight");
 	arrowKeyLeft = GlobalAddAtomA("arrowKeyLeft");
+	arrowKeyDown = GlobalAddAtomA("arrowKeyDown");
 
 	RegisterHotKey(hwnd, arrowKeyRight, MOD_CONTROL | MOD_WIN, VK_RIGHT);
 	RegisterHotKey(hwnd, arrowKeyLeft, MOD_CONTROL | MOD_WIN, VK_LEFT);
+	RegisterHotKey(hwnd, arrowKeyDown, MOD_CONTROL | MOD_WIN, VK_DOWN);
 
 	return TRUE;
 }

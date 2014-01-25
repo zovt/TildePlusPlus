@@ -40,6 +40,11 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(), MonitorList), GetForegroundWindow());
 				MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).tFunc(FindCurrentMonitor(GetForegroundWindow(), MonitorList));
 			}
+			else if(wParam == arrowKeyDown)
+			{
+				MessageBoxA(NULL, "Tilde++ shutting down!", "Tilde++", MB_OK);
+				exit(0);
+			}
 			else
 			{
 				if(!(MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).hhFunc(wParam)))
@@ -163,6 +168,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 	{
 		if(!(MonitorList.at(i).SetFunctions(dllName)))
 			exit(404);
+		MonitorList.at(i).tFunc(i);
 	}
 	UpdateMonitorHotkeys(FindCurrentMonitor(GetForegroundWindow(),MonitorList), hwnd);
 

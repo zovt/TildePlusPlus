@@ -4,6 +4,8 @@
 class Options {
 public:
 	int screenWidth, screenHeight, TBLSize, TBRSize, TBTSize, TBBSize, BVer, BHor, PVer, PHor;
+	int TaskbarHeight, TaskbarEntryFontSize, TaskbarEnabled;
+	WCHAR *TaskbarEntryFont;
 	void readOptions();
 	Options();
 	~Options();

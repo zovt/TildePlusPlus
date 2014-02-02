@@ -1,9 +1,12 @@
-﻿Build started 25/01/2014 12:41:23.
-     1>Project "D:\Github\Tilde++\Tilde++\Equality\Equality.vcxproj" on node 4 (Build target(s)).
+﻿Build started 01/02/2014 22:39:03.
+     1>Project "D:\Github\Tilde++\Tilde++\Equality\Equality.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++ /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EQUALITY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Release\Equality.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++ /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EQUALITY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt dllmain.cpp
          dllmain.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++ /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EQUALITY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Release\Equality.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt Tiling.cpp Update.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../Libde++ /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EQUALITY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Release\Equality.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt Equality.cpp Tiling.cpp Update.cpp
+         Equality.cpp
          Tiling.cpp
      1>Tiling.cpp(19): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
      1>Tiling.cpp(23): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
@@ -20,8 +23,8 @@
          Generating code
          Finished generating code
          Equality.vcxproj -> D:\Github\Tilde++\Tilde++\x64\Release\Equality.dll
-     1>Done Building Project "D:\Github\Tilde++\Tilde++\Equality\Equality.vcxproj" (Build target(s)).
+     1>Done Building Project "D:\Github\Tilde++\Tilde++\Equality\Equality.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.63
+Time Elapsed 00:00:03.63

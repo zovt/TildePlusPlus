@@ -1,8 +1,10 @@
-#include "main.h"
+#include "Taskbar.h"
 #include <iostream>
+
 
 const PCWSTR g_szClassName = L"myWindowClass";
 char hwndow[50];
+
 UINT shellHookMessage;
 updateFunction uFunc;
 handleHotkeyFunction hhFunc;
@@ -13,6 +15,7 @@ HANDLE tHandle;
 
 LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	RECT rect;
 	switch (msg)
 	{
 	default:
@@ -65,6 +68,10 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					}
 				return TRUE;
 				}
+			}
+			if(options->TaskbarEnabled)
+			{
+				RedrawWindow(taskbars.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASENOW);
 			}
 		}
 		return DefWindowProc(hwnd, msg, wParam, lParam);
@@ -164,7 +171,17 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 
 	char locationBuffer[MAX_PATH];
 	char dllName[MAX_PATH];
-
+	if(options->TaskbarEnabled)
+	{
+		LoadFont();
+		RegisterTaskbar(hInstance);
+	}
+	else
+	{
+		GdiplusStartupInput gdiplusStartupInput;
+		ULONG_PTR gdiplusToken;
+		GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+	}
 
 	GetFullPathNameA("Config.ini",MAX_PATH,locationBuffer, NULL);
 

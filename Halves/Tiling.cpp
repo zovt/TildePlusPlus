@@ -58,6 +58,6 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 				x = w + x;
 			}
 		}
-		SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(k), HWND_TOP, MonitorList.at(currentMonitor).lB + options->BHor + (j)*(options->PHor) + x, MonitorList.at(currentMonitor).tB + options->BVer +  (i-1)*(options->PVer) +y, w, h, NULL);
+		SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(k), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor + (j)*(options->PHor) + x, MonitorList.at(currentMonitor).tB + options->BVer + options->TBTSize +  (i-1)*(options->PVer) +y, w, h, NULL);
 	}
 }

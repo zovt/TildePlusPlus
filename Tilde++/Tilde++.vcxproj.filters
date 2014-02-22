@@ -24,9 +24,6 @@
     <ClInclude Include="Vars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Taskbar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,9 +33,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vars.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Taskbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

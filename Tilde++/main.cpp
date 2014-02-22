@@ -1,4 +1,4 @@
-#include "Taskbar.h"
+#include "main.h"
 #include <iostream>
 
 
@@ -68,10 +68,6 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					}
 				return TRUE;
 				}
-			}
-			if(options->TaskbarEnabled)
-			{
-				RedrawWindow(taskbars.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASENOW);
 			}
 		}
 		return DefWindowProc(hwnd, msg, wParam, lParam);
@@ -171,17 +167,6 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance)
 
 	char locationBuffer[MAX_PATH];
 	char dllName[MAX_PATH];
-	if(options->TaskbarEnabled)
-	{
-		LoadFont();
-		RegisterTaskbar(hInstance);
-	}
-	else
-	{
-		GdiplusStartupInput gdiplusStartupInput;
-		ULONG_PTR gdiplusToken;
-		GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-	}
 
 	GetFullPathNameA("Config.ini",MAX_PATH,locationBuffer, NULL);
 

@@ -1,4 +1,4 @@
-#include "Taskbar.h"
+#include "TildePlusPlus.h"
 
 
 BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
@@ -10,10 +10,6 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
 		WinList.push_back(hwndP);
 		CurrentMonitor = SendWindowToMonitor(hwndP, MonitorList);
 		MonitorList.at(CurrentMonitor).uFunc(1, hwndP, CurrentMonitor);
-		if(options->TaskbarEnabled)
-		{
-			RedrawWindow(taskbars.at(CurrentMonitor).hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASENOW);
-		}
 		//idbgmsg("Window Created: %p", hwndP);
 		return TRUE;
 	}
@@ -27,10 +23,6 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList){
 				WinList.erase(WinList.begin() + i);
 				WinList.resize(WinList.size());
 				MonitorList.at(CurrentMonitor).uFunc(0, hwndP, CurrentMonitor);
-				if(options->TaskbarEnabled)
-				{
-					RedrawWindow(taskbars.at(CurrentMonitor).hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASENOW);
-				}
 				idbgmsg("Window Destroyed: %d", hwndP);
 				return TRUE;
 			}

@@ -145,13 +145,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="Taskbar.h" />
     <ClInclude Include="TildePlusPlus.h" />
     <ClInclude Include="Vars.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Taskbar.cpp" />
     <ClCompile Include="TildePlusPlus.cpp" />
     <ClCompile Include="Vars.cpp" />
   </ItemGroup>

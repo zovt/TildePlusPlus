@@ -11,8 +11,12 @@ BOOL UpdateWindowList(WPARAM wParam, LPARAM lParam, std::vector<HWND> &WinList);
 int SendWindowToMonitor(HWND &hwnd, std::vector<Monitor> &MonList);
 int FindDestroyedWindow(HWND hwnd, std::vector<Monitor> &MonList);
 
+BOOL HandleWorkspaceKey(WPARAM wParam);
+BOOL ActivateWorkspace(int Workspace, int cWS);
+BOOL SendWindowToWorkspace(int Workspace, int cWS);
 
-BOOL RegisterMainHotkeys(HWND &hwnd);
+
+BOOL RegisterMainHotkeys(HWND hwnd);
 BOOL ChangeDll(int direction);
 
 BOOL UpdateMonitorHotkeys(int Monitor, HWND hwnd);

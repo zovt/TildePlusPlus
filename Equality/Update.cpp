@@ -166,22 +166,22 @@ BOOL SwapWindows(HWND hwnd, int positionToSwapTo)
 
 
 
-	for(int i = 0; i < MonitorList.at(currentMonitor).WindowList.size(); i++)
+	for(int i = 0; i < MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size(); i++)
 	{
-		if(hwnd == MonitorList.at(currentMonitor).WindowList.at(i))
+		if(hwnd == MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(i))
 		{
 			windowLocation = i;
 		}
 	}
 	
-	if(positionToSwapTo > MonitorList.at(currentMonitor).WindowList.size())
+	if(positionToSwapTo > MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size())
 	{
-		positionToSwapTo = MonitorList.at(currentMonitor).WindowList.size();
+		positionToSwapTo = MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size();
 	}
 	middleMan = hwnd;
 
-	MonitorList.at(currentMonitor).WindowList.at(windowLocation) = MonitorList.at(currentMonitor).WindowList.at(positionToSwapTo-1);
-	MonitorList.at(currentMonitor).WindowList.at(positionToSwapTo - 1) = middleMan;
+	MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(windowLocation) = MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(positionToSwapTo-1);
+	MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(positionToSwapTo - 1) = middleMan;
 
 	return TRUE;
 }
@@ -198,12 +198,12 @@ int SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList)
 	{
 		NextMonitor = CurrentMonitor + 1;
 	}
-	for(int i = 0; i < MonList.at(CurrentMonitor).WindowList.size(); i++)
+	for(int i = 0; i < MonList.at(CurrentMonitor).Workspaces[MonitorList[CurrentMonitor].cWS].size(); i++)
 	{
-		if(hwnd == MonList.at(CurrentMonitor).WindowList.at(i))
+		if(hwnd == MonList.at(CurrentMonitor).Workspaces[MonitorList[CurrentMonitor].cWS].at(i))
 		{
-			MonList.at(NextMonitor).WindowList.push_back(MonList.at(CurrentMonitor).WindowList.at(i));
-			MonList.at(CurrentMonitor).WindowList.erase(MonList.at(CurrentMonitor).WindowList.begin() + i);
+			MonList.at(NextMonitor).Workspaces[MonitorList[NextMonitor].cWS].push_back(MonList.at(CurrentMonitor).Workspaces[MonitorList[CurrentMonitor].cWS].at(i));
+			MonList.at(CurrentMonitor).Workspaces[MonitorList[NextMonitor].cWS].erase(MonList.at(CurrentMonitor).Workspaces[MonitorList[CurrentMonitor].cWS].begin() + i);
 			return NextMonitor;
 		}
 	}

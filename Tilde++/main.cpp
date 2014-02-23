@@ -54,6 +54,10 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				MessageBoxA(NULL, "Tilde++ shutting down!", "Tilde++", MB_OK);
 				exit(0);
 			}
+			else if((wParam == numRow1)||(wParam == numRow1Alt)||(wParam == numRow2)||(wParam == numRow2Alt)||(wParam == numRow3)||(wParam == numRow3Alt)||(wParam == numRow4)||(wParam == numRow4Alt)||(wParam == numRow5)||(wParam == numRow5Alt)||(wParam == numRow6)||(wParam == numRow6Alt)||(wParam == numRow7)||(wParam == numRow7Alt)||(wParam == numRow8)||(wParam == numRow8Alt)||(wParam == numRow9)||(wParam == numRow9Alt))
+			{
+				HandleWorkspaceKey(wParam);
+			}
 			else
 			{
 				if(!(MonitorList.at(FindCurrentMonitor(GetForegroundWindow(), MonitorList)).hhFunc(wParam)))

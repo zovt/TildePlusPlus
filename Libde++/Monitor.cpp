@@ -9,7 +9,13 @@ Monitor::Monitor(int left, int right, int top, int bottom)
 	tB = top;
 	bB = bottom;
 	uDllName = new char[MAX_PATH];
+	cWS = 0;
 	SetSize();
+	std::vector<HWND> WindowList;
+	for(int i = 0; i<9; i++)
+	{
+		Workspaces.push_back(WindowList);
+	}
 }
 Monitor::~Monitor()
 {
@@ -83,11 +89,11 @@ TILDEAPI BOOL SortWindowsToMonitors(std::vector<HWND> &WinList, std::vector<Moni
 		{
 			if((MonList.at(j).lB <= rect.left && rect.left <= MonList.at(j).rB) && (MonList.at(j).tB <= rect.bottom && rect.bottom <= MonList.at(j).bB))
 			{
-				MonList.at(j).WindowList.push_back(WinList.at(i));
+				MonList.at(j).Workspaces[MonList[j].cWS].push_back(WinList.at(i));
 				idbgmsg("Window %d",i);
 				idbgmsg(" sent to Monitor %d", j);
 				idbgmsg(" Monitor %d", j);
-				idbgmsg(" has %d windows", MonList.at(j).WindowList.size());
+				idbgmsg(" has %d windows", MonList.at(j).Workspaces[MonList[j].cWS].size());
 				continue;
 			}
 		}

@@ -7,7 +7,8 @@ public:
 	int lB, rB, tB, bB;
 	int width, height;
 	int usableWidth, usableHeight;
-	std::vector<HWND> WindowList;
+	std::vector<std::vector<HWND>> Workspaces;
+	int cWS;
 
 	HINSTANCE uDll;
 	char *uDllName;

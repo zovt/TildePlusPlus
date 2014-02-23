@@ -5,15 +5,15 @@
 
 extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 {
-	if(MonitorList.at(currentMonitor).WindowList.size() == 1)
+	if(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size() == 1)
 	{
-			SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(0), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer, MonitorList.at(currentMonitor).usableWidth, MonitorList.at(currentMonitor).usableHeight, NULL);
+			SetWindowPos(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(0), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer, MonitorList.at(currentMonitor).usableWidth, MonitorList.at(currentMonitor).usableHeight, NULL);
 			return;
 	}
 	int rows, cols, WindowSizeHorizontal, WindowSizeVertical, WindowMovementHorizontal, WindowMovementVertical;
 	int currentWindow = 0;
 
-	double sqrtWin = sqrt(MonitorList.at(currentMonitor).WindowList.size());
+	double sqrtWin = sqrt(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size());
 	if((sqrtWin - floor(sqrtWin)) < ((ceil(sqrtWin) - sqrtWin)))
 	{
 		cols = floor(sqrtWin);
@@ -33,11 +33,11 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 	{
 		for(int j = 0; j < cols; j++)
 		{
-			if(currentWindow >= MonitorList.at(currentMonitor).WindowList.size())
+			if(currentWindow >= MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size())
 			{
 				break;
 			}
-			SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(currentWindow), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor + (WindowMovementHorizontal*j), MonitorList.at(currentMonitor).tB + options->BHor + options->TBTSize + (WindowMovementVertical*i), WindowSizeHorizontal, WindowSizeVertical, NULL);
+			SetWindowPos(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(currentWindow), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor + (WindowMovementHorizontal*j), MonitorList.at(currentMonitor).tB + options->BHor + options->TBTSize + (WindowMovementVertical*i), WindowSizeHorizontal, WindowSizeVertical, NULL);
 			currentWindow++;
 		}
 	}

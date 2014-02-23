@@ -17,9 +17,9 @@ void SetPortWindowNumberList()
 extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 {
 	int PortWindowSizeVertical, PortWindowSizeHorizontal, PortWindowMovementVertical, DeckWindowSizeVertical, DeckWindowSizeHorizontal, DeckWindowMovementVertical, DeckWindowMovementHorizontal;
-	if(MonitorList.at(currentMonitor).WindowList.size() == 1)
+	if(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size() == 1)
 	{
-			SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(0), HWND_TOP, MonitorList.at(currentMonitor).lB + options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer, MonitorList.at(currentMonitor).usableWidth, MonitorList.at(currentMonitor).usableHeight, NULL);
+			SetWindowPos(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(0), HWND_TOP, MonitorList.at(currentMonitor).lB + options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer, MonitorList.at(currentMonitor).usableWidth, MonitorList.at(currentMonitor).usableHeight, NULL);
 			return;
 	}
 
@@ -27,24 +27,24 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 	PortWindowSizeHorizontal = 2*(MonitorList.at(currentMonitor).usableWidth-(options->PHor))/3;
 	PortWindowMovementVertical = PortWindowSizeVertical+options->PVer;
 
-	if(MonitorList.at(currentMonitor).WindowList.size() > PortWindowNumberList.at(currentMonitor).value)
+	if(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size() > PortWindowNumberList.at(currentMonitor).value)
 	{
-		DeckWindowSizeVertical = (MonitorList.at(currentMonitor).usableHeight-((MonitorList.at(currentMonitor).WindowList.size()-1)-PortWindowNumberList.at(currentMonitor).value)*options->PVer)/(MonitorList.at(currentMonitor).WindowList.size()-PortWindowNumberList.at(currentMonitor).value);
+		DeckWindowSizeVertical = (MonitorList.at(currentMonitor).usableHeight-((MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size()-1)-PortWindowNumberList.at(currentMonitor).value)*options->PVer)/(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size()-PortWindowNumberList.at(currentMonitor).value);
 		DeckWindowSizeHorizontal = (MonitorList.at(currentMonitor).usableWidth-(options->PHor))/3;
 		DeckWindowMovementVertical = DeckWindowSizeVertical + options->PVer;
 		DeckWindowMovementHorizontal = PortWindowSizeHorizontal + options->PHor;
 	}
 	idbgmsg("Monitor %d", currentMonitor);
-	idbgmsg(" has %d windows", MonitorList.at(currentMonitor).WindowList.size());
-	for(int j = 0; j < MonitorList.at(currentMonitor).WindowList.size(); j++)
+	idbgmsg(" has %d windows", MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size());
+	for(int j = 0; j < MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size(); j++)
 	{
 		if(j<PortWindowNumberList.at(currentMonitor).value)
 		{
-			SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(j), HWND_TOP, MonitorList.at(currentMonitor).lB+options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
+			SetWindowPos(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(j), HWND_TOP, MonitorList.at(currentMonitor).lB+options->BHor, MonitorList.at(currentMonitor).tB + options->TBTSize + options->BVer + PortWindowMovementVertical*j, PortWindowSizeHorizontal, PortWindowSizeVertical, NULL);
 		}
 		else
 		{
-			SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(j), HWND_TOP, MonitorList.at(currentMonitor).lB + options->BHor + DeckWindowMovementHorizontal, MonitorList.at(currentMonitor).tB + options->BVer + options->TBTSize + DeckWindowMovementVertical*(j-PortWindowNumberList.at(currentMonitor).value), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
+			SetWindowPos(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(j), HWND_TOP, MonitorList.at(currentMonitor).lB + options->BHor + DeckWindowMovementHorizontal, MonitorList.at(currentMonitor).tB + options->BVer + options->TBTSize + DeckWindowMovementVertical*(j-PortWindowNumberList.at(currentMonitor).value), DeckWindowSizeHorizontal, DeckWindowSizeVertical, NULL);
 		}
 	}
 }

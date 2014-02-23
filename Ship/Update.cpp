@@ -192,22 +192,22 @@ BOOL SwapWindows(HWND hwnd, int positionToSwapTo)
 
 
 
-	for(int i = 0; i < MonitorList.at(currentMonitor).WindowList.size(); i++)
+	for(int i = 0; i < MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size(); i++)
 	{
-		if(hwnd == MonitorList.at(currentMonitor).WindowList.at(i))
+		if(hwnd == MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(i))
 		{
 			windowLocation = i;
 		}
 	}
 	
-	if(positionToSwapTo > MonitorList.at(currentMonitor).WindowList.size())
+	if(positionToSwapTo > MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size())
 	{
-		positionToSwapTo = MonitorList.at(currentMonitor).WindowList.size();
+		positionToSwapTo = MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size();
 	}
 	middleMan = hwnd;
 
-	MonitorList.at(currentMonitor).WindowList.at(windowLocation) = MonitorList.at(currentMonitor).WindowList.at(positionToSwapTo-1);
-	MonitorList.at(currentMonitor).WindowList.at(positionToSwapTo - 1) = middleMan;
+	MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(windowLocation) = MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(positionToSwapTo-1);
+	MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(positionToSwapTo - 1) = middleMan;
 
 	return TRUE;
 }
@@ -216,10 +216,10 @@ BOOL RemoveWindowBorders(std::vector<Monitor> &MonList)
 {
 	for(int i = 0; i < MonList.size(); i++)
 	{
-		for(int j = 0; j < MonList.at(i).WindowList.size(); j++)
+		for(int j = 0; j < MonList.at(i).Workspaces[MonList[i].cWS].size(); j++)
 		{
-			SetWindowLong(MonList.at(i).WindowList.at(j), GWL_STYLE, GetWindowLong(MonList.at(i).WindowList.at(j), GWL_STYLE) & ~(WS_CAPTION));
-			SetWindowPos(MonList.at(i).WindowList.at(j), NULL, NULL, NULL, NULL, NULL, SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
+			SetWindowLong(MonList.at(i).Workspaces[MonList[i].cWS].at(j), GWL_STYLE, GetWindowLong(MonList.at(i).Workspaces[MonList[i].cWS].at(j), GWL_STYLE) & ~(WS_CAPTION));
+			SetWindowPos(MonList.at(i).Workspaces[MonList[i].cWS].at(j), NULL, NULL, NULL, NULL, NULL, SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 		}
 	}
 	return TRUE;
@@ -245,12 +245,12 @@ int SendWindowToNextMonitor(HWND hwnd, std::vector<Monitor> &MonList)
 	{
 		NextMonitor = CurrentMonitor + 1;
 	}
-	for(int i = 0; i < MonList.at(CurrentMonitor).WindowList.size(); i++)
+	for(int i = 0; i < MonList.at(CurrentMonitor).Workspaces[MonList[CurrentMonitor].cWS].size(); i++)
 	{
-		if(hwnd == MonList.at(CurrentMonitor).WindowList.at(i))
+		if(hwnd == MonList.at(CurrentMonitor).Workspaces[MonList[CurrentMonitor].cWS].at(i))
 		{
-			MonList.at(NextMonitor).WindowList.push_back(MonList.at(CurrentMonitor).WindowList.at(i));
-			MonList.at(CurrentMonitor).WindowList.erase(MonList.at(CurrentMonitor).WindowList.begin() + i);
+			MonList.at(NextMonitor).Workspaces[MonList[NextMonitor].cWS].push_back(MonList.at(CurrentMonitor).Workspaces[MonList[CurrentMonitor].cWS].at(i));
+			MonList.at(CurrentMonitor).Workspaces[MonList[NextMonitor].cWS].erase(MonList.at(CurrentMonitor).Workspaces[MonList[CurrentMonitor].cWS].begin() + i);
 			return NextMonitor;
 		}
 	}

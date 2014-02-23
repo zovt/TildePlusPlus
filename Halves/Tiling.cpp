@@ -16,12 +16,12 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 	w = MonitorList.at(currentMonitor).usableWidth;
 	h = MonitorList.at(currentMonitor).usableHeight;
 
-	for(int k = 0; k < MonitorList.at(currentMonitor).WindowList.size(); k++)
+	for(int k = 0; k < MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size(); k++)
 	{
 		if(k % 2 == 0)
 		{
 			i++;
-			if(k + 1 == MonitorList.at(currentMonitor).WindowList.size())
+			if(k + 1 == MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size())
 			{
 				w = w;
 			}
@@ -41,7 +41,7 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 		else
 		{
 			j++;
-			if(k + 1 == MonitorList.at(currentMonitor).WindowList.size())
+			if(k + 1 == MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].size())
 			{
 				h = h;
 			}
@@ -58,6 +58,6 @@ extern "C" __declspec(dllexport) void Main_Tile(int currentMonitor)
 				x = w + x;
 			}
 		}
-		SetWindowPos(MonitorList.at(currentMonitor).WindowList.at(k), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor + (j)*(options->PHor) + x, MonitorList.at(currentMonitor).tB + options->BVer + options->TBTSize +  (i-1)*(options->PVer) +y, w, h, NULL);
+		SetWindowPos(MonitorList.at(currentMonitor).Workspaces[MonitorList[currentMonitor].cWS].at(k), HWND_TOP, MonitorList.at(currentMonitor).lB + options->TBLSize + options->BHor + (j)*(options->PHor) + x, MonitorList.at(currentMonitor).tB + options->BVer + options->TBTSize +  (i-1)*(options->PVer) +y, w, h, NULL);
 	}
 }
